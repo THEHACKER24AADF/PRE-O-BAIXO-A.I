@@ -1,0 +1,149 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', sans-serif;
+}
+
+.Container {
+    display: flex;
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden; 
+}
+
+.lado-esquerdo {
+    flex: 1;
+    background-color: #00e5ff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.lado-esquerdo img {
+    max-width: 70%;
+    height: auto;
+}
+
+.lado-direito {
+    flex: 1;
+    background-color: #f7f7f7;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow-y: auto; 
+}
+
+.form {
+    width: 80%;
+    max-width: 600px; /* Aumentei um pouquinho para as colunas respirarem bem */
+    background-color: #DEB887;
+    padding: 2.5rem; 
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+.form-header {
+    margin-bottom: 1.5rem;
+    display: flex;
+    justify-content: space-between; /* Mantém o título de um lado e o botão do outro */
+    align-items: center;
+}
+
+/* O SEU CÓDIGO DO TÍTULO AQUI */
+.form-header h1 {
+    color: #333;
+    position: relative; /* Necessário para o ::after não "voar" pela tela */
+    font-size: 1.5rem;
+}
+
+.form-header h1::after {
+    content: '';
+    display: block;
+    width: 5rem;
+    height: 0.3rem;
+    background-color: #00e5ff; /* Usei o azul do mascote ao invés do vermelho para combinar! */
+    margin-top: 0.5rem;
+    border-radius: 10px;
+}
+
+.form-header p {
+    margin-top: 10px;
+    color: #555;
+}
+
+/* O SEU CÓDIGO DE DUAS COLUNAS AQUI */
+.input-group {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding: 1rem 0;
+}
+
+.input-box {
+    display: flex;
+    flex-direction: column;
+    width: 48%; /* A MÁGICA: Cada caixa ocupa 48% da largura, formando 2 colunas! */
+    margin-bottom: 1.1rem;
+}
+
+.input-box label {
+    margin-bottom: 5px;
+    font-weight: 600;
+    color: #333;
+    font-size: 14px; 
+}
+
+.input-box input {
+    width: 100%;
+    padding: 10px 12px; 
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.continue-button {
+    width: 100%;
+    margin-top: 10px;
+}
+
+.continue-button button {
+    width: 100%;
+    padding: 15px;
+    background-color: #00e5ff; 
+    color: #111;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s ease-in-out;
+}
+
+.continue-button button:hover {
+    background-color: #00c4db; 
+}
+
+.login-button {
+    display: flex;
+    align-items: center;
+}
+
+.login-button button {
+    border: none;
+    background-color: #FFF5EE;
+    color: #333;
+    font-weight: bold;
+    padding: 0.6rem 1.2rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.login-button button:hover {
+    background-color: #FFE4C4;
+}

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Preço Baixo A.I.</title>
+</head>
+<body>
+    <h1>Robô de Busca - Preço Baixo A.I. 🤖</h1>
+
+    <!-- O formulário que envia o dado via POST para a nossa View -->
+    <form method="POST">
+        <!-- Token de segurança obrigatório no Django -->
+        {% csrf_token %} 
+        
+        <label for="produto">Qual produto você quer buscar?</label><br>
+        <!-- O name="produto" é a chave que o nosso views.py está procurando -->
+        <input type="text" id="produto" name="produto" placeholder="Ex: Monitor Dell 24..." required>
+        <button type="submit">Pesquisar Preço</button>
+    </form>
+
+    <hr>
+
+    <!-- Aqui é onde a mágica do Django acontece: ele injeta os dados do Python no HTML -->
+    {% if resultado_ia %}
+        <h2>Resultados para: {{ produto_buscado }}</h2>
+        
+        <div style="background-color: #f4f4f4; padding: 15px; border-radius: 5px;">
+            <!-- A tag linebreaks formata as quebras de linha do texto da IA -->
+            <p>{{ resultado_ia|linebreaks }}</p> 
+        </div>
+    {% endif %}
+
+</body>
+</html>

@@ -1,0 +1,173 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', sans-serif;
+}
+
+body {
+    background-color: #f4f6f8; /* Fundo cinza bem claro para destacar as caixas brancas */
+    color: #333;
+}
+
+.app-container {
+    display: flex;
+    max-width: 1200px; /* Mantém a tela contida e elegante em monitores grandes */
+    margin: 0 auto;
+    padding: 2rem;
+    gap: 2rem; /* Espaço entre a parte principal e a barra lateral */
+    min-height: 100vh;
+}
+
+/* LADO ESQUERDO */
+.main-content {
+    flex: 3; /* Ocupa 3 partes do espaço */
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.search-section {
+    background-color: #ffffff;
+    padding: 3rem;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    text-align: center;
+}
+
+.search-section h1 {
+    margin-bottom: 1.5rem;
+    font-size: 24px;
+    color: #111;
+}
+
+.search-box {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+}
+
+.search-box input {
+    width: 70%;
+    padding: 15px 20px;
+    border: 2px solid #eaeaea;
+    border-radius: 8px;
+    font-size: 16px;
+    outline: none;
+    transition: 0.3s;
+}
+
+.search-box input:focus {
+    border-color: #00e5ff; /* O input fica azul ao ser clicado! */
+}
+
+.search-box button {
+    padding: 15px 30px;
+    background-color: #00e5ff;
+    color: #111;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.search-box button:hover {
+    background-color: #00c4db;
+}
+
+/* DESTAQUES DO DIA */
+.highlights-section h2 {
+    font-size: 20px;
+    margin-bottom: 1rem;
+    color: #444;
+}
+
+.cards-grid {
+    display: flex;
+    gap: 1.5rem;
+}
+
+.product-card {
+    background-color: #ffffff;
+    flex: 1;
+    padding: 1.5rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+    text-align: center;
+    border-top: 4px solid #00e5ff; /* Um charme no topo do card */
+}
+
+.product-image {
+    font-size: 40px;
+    margin-bottom: 10px;
+}
+
+.product-info h3 {
+    font-size: 16px;
+    margin-bottom: 5px;
+}
+
+.store {
+    font-size: 13px;
+    color: #888;
+    margin-bottom: 10px;
+}
+
+.price {
+    font-weight: bold;
+    color: #00c4db;
+    font-size: 18px;
+}
+
+/* LADO DIREITO (SIDEBAR) */
+.sidebar {
+    flex: 1; /* Ocupa 1 parte do espaço (mais fino) */
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.guide-box {
+    background-color: #111; /* Cor escura para criar um contraste legal na tela */
+    color: #fff;
+    padding: 2rem;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.guide-box h2 {
+    margin-bottom: 1.5rem;
+    font-size: 18px;
+    color: #00e5ff;
+}
+
+.guide-box ol {
+    padding-left: 1rem;
+    line-height: 1.8;
+    font-size: 14px;
+    color: #ccc;
+}
+
+.guide-box li {
+    margin-bottom: 10px;
+}
+
+.terms-link {
+    text-align: center;
+}
+
+.terms-link a {
+    color: #888;
+    font-size: 13px;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.terms-link a:hover {
+    color: #00e5ff;
+    text-decoration: underline;
+}

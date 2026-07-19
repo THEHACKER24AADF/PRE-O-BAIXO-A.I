@@ -1,0 +1,82 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'buscador/css/homee.css' %}">
+    <title>Preço Baixo A.I - Buscar</title>
+</head>
+<body>
+
+    <div class="app-container">
+        
+        <!-- LADO ESQUERDO: Busca e Destaques -->
+        <div class="main-content">
+            
+            <!-- A Barra de Busca -->
+            <div class="search-section">
+                <h1>Qual produto você procura hoje?</h1>
+                <div class="search-box">
+                    <input type="text" placeholder="Consulte o preço aqui...">
+                    <button type="submit">Buscar Preço</button>
+                </div>
+            </div>
+
+            <!-- Os Destaques do Dia (Estáticos por enquanto) -->
+            <div class="highlights-section">
+                <h2>🔥 Em destaque hoje</h2>
+                <div class="cards-grid">
+                    
+                    <div class="product-card">
+                        <div class="product-image">🛒</div>
+                        <div class="product-info">
+                            <h3>Arroz 5kg Tipo 1</h3>
+                            <p class="store">Mercado X</p>
+                            <p class="price">R$ 24,90</p>
+                        </div>
+                    </div>
+
+                    <div class="product-card">
+                        <div class="product-image">🛒</div>
+                        <div class="product-info">
+                            <h3>Óleo de Soja 900ml</h3>
+                            <p class="store">Mercado Y</p>
+                            <p class="price">R$ 5,80</p>
+                        </div>
+                    </div>
+
+                    <div class="product-card">
+                        <div class="product-image">🛒</div>
+                        <div class="product-info">
+                            <h3>Café Torrado 500g</h3>
+                            <p class="store">Mercado Z</p>
+                            <p class="price">R$ 16,50</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+        <!-- LADO DIREITO: Sidebar com Guia Rápido -->
+        <div class="sidebar">
+            <div class="guide-box">
+                <h2>Guia Rápido 💡</h2>
+                <ol>
+                    <li>Digite o nome do produto na barra de busca.</li>
+                    <li>Nossa I.A. vai varrer as principais lojas da sua região.</li>
+                    <li>Compare os valores e escolha onde economizar!</li>
+                </ol>
+            </div>
+            
+            <div class="terms-link">
+                <a href="#">Ler Termos de Uso e Privacidade</a>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>
