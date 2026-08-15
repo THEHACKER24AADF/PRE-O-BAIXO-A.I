@@ -1,10 +1,7 @@
-from django.urls import path
-from . import views
+from django.contrib import admin
+from django.urls import path, include
 
 urlpatterns = [
-    # A página vazia '' é a primeira que abre (a tela de login)
-    path('', views.login, name='login'),
-    
-    # A página /home é a tela de buscas
-    path('home/', views.home, name='home'),
+    path('admin/', admin.site.urls),
+    path('', include('buscador.urls')), # <-- Tem que estar com as aspas vazias ('') aqui!
 ]
