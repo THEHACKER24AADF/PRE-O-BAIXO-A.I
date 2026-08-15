@@ -4,79 +4,243 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{% static 'buscador/css/homee.css' %}">
-    <title>Preço Baixo A.I - Buscar</title>
+    <title>Preço Baixo A.I. - Busca Inteligente</title>
+    
+    <!-- Fontes modernas -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&family=Space+Grotesk:wght@700&display=swap" rel="stylesheet">
+    
+    <!-- Ícones -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <style>
+        /* Estilo Base - Tema Dark/Tech */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        body {
+            background-color: #020617; /* Slate escuro */
+            color: #f8fafc;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Barra de Navegação Superior */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 50px;
+            background-color: #0f172a;
+            border-bottom: 1px solid #1e293b;
+        }
+
+        .logo {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 24px;
+            font-weight: 700;
+            color: #f8fafc;
+            text-decoration: none;
+        }
+
+        .logo span {
+            color: #2dd4bf; /* Verde neon */
+        }
+
+        .nav-links a {
+            color: #94a3b8;
+            text-decoration: none;
+            margin-left: 30px;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #2dd4bf;
+        }
+
+        /* Área Principal de Busca */
+        main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+        }
+
+        .hero-text {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .hero-text h1 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 48px;
+            margin-bottom: 15px;
+        }
+
+        .hero-text p {
+            color: #94a3b8;
+            font-size: 18px;
+        }
+
+        /* Formulário de Pesquisa */
+        .search-container {
+            width: 100%;
+            max-width: 800px;
+            background-color: #1e293b;
+            padding: 10px;
+            border-radius: 50px;
+            display: flex;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+            border: 1px solid #334155;
+            transition: border-color 0.3s;
+        }
+
+        .search-container:focus-within {
+            border-color: #2dd4bf;
+        }
+
+        .search-input {
+            flex: 1;
+            background: transparent;
+            border: none;
+            padding: 20px 30px;
+            color: #f8fafc;
+            font-size: 18px;
+            outline: none;
+        }
+
+        .search-input::placeholder {
+            color: #64748b;
+        }
+
+        .search-btn {
+            background: linear-gradient(135deg, #2dd4bf, #34d399);
+            color: #020617;
+            border: none;
+            padding: 0 40px;
+            border-radius: 40px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .search-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(45, 212, 191, 0.4);
+        }
+
+        /* Área de Sugestões / Cards */
+        .suggestions {
+            display: flex;
+            gap: 20px;
+            margin-top: 50px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .suggestion-card {
+            background-color: #0f172a;
+            border: 1px solid #1e293b;
+            padding: 20px;
+            border-radius: 16px;
+            width: 200px;
+            text-align: left;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .suggestion-card:hover {
+            border-color: #2dd4bf;
+            background-color: #1e293b;
+        }
+
+        .suggestion-card i {
+            color: #2dd4bf;
+            font-size: 24px;
+            margin-bottom: 15px;
+        }
+
+        .suggestion-card h3 {
+            font-size: 16px;
+            margin-bottom: 8px;
+        }
+
+        .suggestion-card p {
+            font-size: 14px;
+            color: #64748b;
+        }
+
+    </style>
 </head>
 <body>
 
-    <div class="app-container">
-        
-        <!-- LADO ESQUERDO: Busca e Destaques -->
-        <div class="main-content">
-            
-            <!-- A Barra de Busca -->
-            <div class="search-section">
-                <h1>Qual produto você procura hoje?</h1>
-                <div class="search-box">
-                    <input type="text" placeholder="Consulte o preço aqui...">
-                    <button type="submit">Buscar Preço</button>
-                </div>
-            </div>
+    <header>
+        <a href="#" class="logo">Preço Baixo <span>A.I.</span></a>
+        <div class="nav-links">
+            <a href="#"><i class="fa-solid fa-clock-rotate-left"></i> Histórico</a>
+            <a href="{% url 'login' %}"><i class="fa-solid fa-arrow-right-from-bracket"></i> Sair</a>
+        </div>
+    </header>
 
-            <!-- Os Destaques do Dia (Estáticos por enquanto) -->
-            <div class="highlights-section">
-                <h2>🔥 Em destaque hoje</h2>
-                <div class="cards-grid">
-                    
-                    <div class="product-card">
-                        <div class="product-image">🛒</div>
-                        <div class="product-info">
-                            <h3>Arroz 5kg Tipo 1</h3>
-                            <p class="store">Mercado X</p>
-                            <p class="price">R$ 24,90</p>
-                        </div>
-                    </div>
-
-                    <div class="product-card">
-                        <div class="product-image">🛒</div>
-                        <div class="product-info">
-                            <h3>Óleo de Soja 900ml</h3>
-                            <p class="store">Mercado Y</p>
-                            <p class="price">R$ 5,80</p>
-                        </div>
-                    </div>
-
-                    <div class="product-card">
-                        <div class="product-image">🛒</div>
-                        <div class="product-info">
-                            <h3>Café Torrado 500g</h3>
-                            <p class="store">Mercado Z</p>
-                            <p class="price">R$ 16,50</p>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-
+    <main>
+        <div class="hero-text">
+            <h1>O que você quer comprar hoje?</h1>
+            <p>Descreva o produto. Nossa IA vai varrer a internet e encontrar o melhor custo-benefício.</p>
         </div>
 
-        <!-- LADO DIREITO: Sidebar com Guia Rápido -->
-        <div class="sidebar">
-            <div class="guide-box">
-                <h2>Guia Rápido 💡</h2>
-                <ol>
-                    <li>Digite o nome do produto na barra de busca.</li>
-                    <li>Nossa I.A. vai varrer as principais lojas da sua região.</li>
-                    <li>Compare os valores e escolha onde economizar!</li>
-                </ol>
+        <!-- Formulário que vai enviar o texto para o Python -->
+        <form class="search-container" method="POST" action="{% url 'home' %}">
+            {% csrf_token %}
+            <!-- A CORREÇÃO ESTÁ AQUI: name="pesquisa" -->
+            <input type="text" class="search-input" name="pesquisa" placeholder="Ex: 'Notebook para faculdade até 3000 reais...'" required>
+            <button type="submit" class="search-btn">
+                Buscar <i class="fa-solid fa-sparkles"></i>
+            </button>
+        </form>
+
+        <!-- CAIXA DE RESPOSTA DA IA (Só aparece quando a IA responde) -->
+        {% if resposta_ia %}
+        <div style="background-color: #1e293b; border: 1px solid #2dd4bf; border-radius: 12px; padding: 25px; margin: 30px auto; max-width: 800px; color: #e2e8f0; line-height: 1.6; text-align: left; box-shadow: 0 4px 20px rgba(45, 212, 191, 0.15);">
+            <h3 style="color: #2dd4bf; margin-top: 0; font-size: 1.3rem; display: flex; align-items: center; gap: 10px;">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a2 2 0 0 1 2 2c-.11.64-.17 1.3-.17 2s.06 1.36.17 2a2 2 0 0 1-2 2 2 2 0 0 1-2-2c.11-.64.17-1.3.17-2s-.06-1.36-.17-2a2 2 0 0 1 2-2Z"/><path d="M22 12a2 2 0 0 1-2 2c-.64-.11-1.3-.17-2-.17s-1.36.06-2 .17a2 2 0 0 1-2-2 2 2 0 0 1 2-2c.64.11 1.3.17 2 .17s1.36-.06 2-.17a2 2 0 0 1 2 2Z"/><path d="M12 22a2 2 0 0 1-2-2c.11-.64.17-1.3.17-2s-.06-1.36-.17-2a2 2 0 0 1 2-2 2 2 0 0 1 2 2c-.11.64-.17 1.3-.17 2s.06 1.36.17 2a2 2 0 0 1-2 2Z"/><path d="M2 12a2 2 0 0 1 2-2c.64.11 1.3.17 2 .17s1.36-.06 2-.17a2 2 0 0 1 2 2 2 2 0 0 1-2 2c-.64-.11-1.3-.17-2-.17s-1.36.06-2 .17a2 2 0 0 1-2-2Z"/></svg>
+                Resposta do Preço Baixo A.I:
+            </h3>
+            <div style="white-space: pre-wrap; font-size: 1.05rem;">{{ resposta_ia }}</div>
+        </div>
+        {% endif %}
+
+        <div class="suggestions">
+            <div class="suggestion-card">
+                <i class="fa-solid fa-mobile-screen"></i>
+                <h3>Smartphones</h3>
+                <p>Busque pelos últimos lançamentos com desconto.</p>
             </div>
-            
-            <div class="terms-link">
-                <a href="#">Ler Termos de Uso e Privacidade</a>
+            <div class="suggestion-card">
+                <i class="fa-solid fa-laptop"></i>
+                <h3>Tecnologia</h3>
+                <p>Notebooks, monitores e periféricos ideais.</p>
+            </div>
+            <div class="suggestion-card">
+                <i class="fa-solid fa-house-signal"></i>
+                <h3>Casa Inteligente</h3>
+                <p>Automatize sua casa pagando o preço justo.</p>
             </div>
         </div>
 
-    </div>
+    </main>
 
 </body>
 </html>

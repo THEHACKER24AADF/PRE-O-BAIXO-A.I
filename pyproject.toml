@@ -5,7 +5,7 @@ description = "Default template for PDM package"
 authors = [
     {name = "Matheus", email = "massarandubadejesus@gmail.com"},
 ]
-dependencies = ["django>=6.0.4", "python-dotenv>=1.2.2", "google-genai>=2.7.0"]
+dependencies = ["django>=6.0.4", "python-dotenv>=1.2.2", "google-genai>=2.7.0", "requests>=2.34.2"]
 requires-python = "==3.14.*"
 readme = "README.md"
 license = {text = "MIT"}

@@ -2,33 +2,122 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <title>Preço Baixo A.I.</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - Preço Baixo A.I.</title>
+    <style>
+        body {
+            background-color: #020617;
+            color: #f8fafc;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 40px;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        .search-section {
+            text-align: center;
+            margin-bottom: 40px;
+            background-color: #0f172a;
+            padding: 30px;
+            border-radius: 10px;
+            border: 1px solid #1e293b;
+        }
+        .search-section h2 {
+            color: #2dd4bf;
+            margin-top: 0;
+        }
+        /* Estilo da barra de pesquisa */
+        .search-box {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        .search-box input {
+            padding: 15px;
+            width: 60%;
+            border-radius: 8px;
+            border: 1px solid #2dd4bf;
+            background-color: #020617;
+            color: #f8fafc;
+            font-size: 16px;
+        }
+        .search-box button {
+            padding: 15px 30px;
+            background-color: #2dd4bf;
+            color: #020617;
+            border: none;
+            border-radius: 8px;
+            font-weight: bold;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .search-box button:hover {
+            background-color: #14b8a6;
+        }
+    </style>
 </head>
 <body>
-    <h1>Robô de Busca - Preço Baixo A.I. 🤖</h1>
 
-    <!-- O formulário que envia o dado via POST para a nossa View -->
-    <form method="POST">
-        <!-- Token de segurança obrigatório no Django -->
-        {% csrf_token %} 
-        
-        <label for="produto">Qual produto você quer buscar?</label><br>
-        <!-- O name="produto" é a chave que o nosso views.py está procurando -->
-        <input type="text" id="produto" name="produto" placeholder="Ex: Monitor Dell 24..." required>
-        <button type="submit">Pesquisar Preço</button>
-    </form>
+<div class="container">
 
-    <hr>
+   <h2>Oi {{ nome_usuario|title }}, o que você quer comprar hoje?</h2>
+        <form method="POST" action="">
+            {% csrf_token %}
+            <div class="search-box">
+                <!-- O atributo name="produto" é o que o Python procura! -->
+                <input type="text" name="produto" placeholder="Ex: Notebook Dell Inspiron, Fritadeira Airfryer..." required>
+                <button type="submit">Buscar Inteligente</button>
+            </div>
+        </form>
+    </div>
 
-    <!-- Aqui é onde a mágica do Django acontece: ele injeta os dados do Python no HTML -->
-    {% if resultado_ia %}
-        <h2>Resultados para: {{ produto_buscado }}</h2>
-        
-        <div style="background-color: #f4f4f4; padding: 15px; border-radius: 5px;">
-            <!-- A tag linebreaks formata as quebras de linha do texto da IA -->
-            <p>{{ resultado_ia|linebreaks }}</p> 
+    <!-- Mensagens de Erro -->
+    {% if erro %}
+        <div style="background-color: #450a0a; color: #fca5a5; padding: 15px; border-radius: 8px; border: 1px solid #7f1d1d; margin-bottom: 20px;">
+            {{ erro }}
         </div>
     {% endif %}
+
+    <!-- Mostra o que o usuário pesquisou -->
+    {% if termo_buscado %}
+        <h3 style="color: #94a3b8; border-bottom: 1px solid #1e293b; padding-bottom: 10px;">
+            Resultados para: <span style="color: #2dd4bf;">"{{ termo_buscado }}"</span>
+        </h3>
+    {% endif %}
+
+    <!-- 2. O SEU CÓDIGO DE RESULTADOS COMEÇA AQUI -->
+    
+    <!-- Análise da Inteligência Artificial -->
+    {% if resposta_ia %}
+        <div style="background-color: #0f172a; color: #f8fafc; padding: 20px; border-radius: 8px; margin-top: 20px; border: 1px solid #2dd4bf;">
+            <h4 style="color: #2dd4bf; margin-top: 0;">💡 Dica da nossa IA:</h4>
+            {{ resposta_ia|linebreaksbr }}
+        </div>
+    {% endif %}
+
+    <!-- Ofertas Reais da Internet -->
+    {% if produtos_reais %}
+        <h4 style="color: #f8fafc; margin-top: 30px; border-bottom: 2px solid #1e293b; padding-bottom: 10px;">🔥 Melhores ofertas encontradas agora:</h4>
+        
+        <div style="display: flex; gap: 20px; flex-wrap: wrap; margin-top: 15px;">
+            {% for produto in produtos_reais %}
+                <div style="background-color: #1e293b; padding: 15px; border-radius: 8px; width: 200px; text-align: center; border: 1px solid #334155;">
+                    <img src="{{ produto.imagem }}" alt="Imagem do produto" style="max-width: 100%; border-radius: 5px; height: 120px; object-fit: contain;">
+                    <p style="font-size: 12px; color: #cbd5e1; margin: 10px 0; height: 50px; overflow: hidden;">{{ produto.titulo }}</p>
+                    <h3 style="color: #2dd4bf; margin: 0 0 15px 0;">{{ produto.preco }}</h3>
+                    <a href="{{ produto.link }}" target="_blank" style="background-color: #2dd4bf; color: #020617; padding: 8px 15px; text-decoration: none; border-radius: 5px; font-weight: bold; font-size: 14px; display: block;">Ver Oferta</a>
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+    
+    <!-- FIM DO SEU CÓDIGO -->
+
+</div>
 
 </body>
 </html>

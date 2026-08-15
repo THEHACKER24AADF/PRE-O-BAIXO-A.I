@@ -6,6 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{% static 'buscador/css/style.css' %}?v=3">
     <title>Tela de Login - Preço Baixo A.I</title>
+    
+    <!-- Importando a biblioteca oficial do Google -->
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
 </head>
 <body>
 
@@ -17,10 +20,10 @@
 
         <div class="lado-direito">
             
-            <!-- AQUI É A MÁGICA: Trocamos o <div class="form"> por um <form method="POST"> -->
+            <!-- Formulário principal -->
             <form class="form" method="POST" action="{% url 'login' %}">
                 
-                <!-- Essa tag é OBRIGATÓRIA no Django por segurança! -->
+                <!-- Tag OBRIGATÓRIA no Django por segurança -->
                 {% csrf_token %}
                 
                 <div class="form-header">
@@ -34,15 +37,66 @@
                     </div>
                 </div>
 
-                <div class="botoes-provisorios">
-                    [ Botão Google ]<br><br>
-                    [ Botão Email ]
+                <!-- Botão Oficial do Google -->
+                <div class="google-login-container" style="display: flex; justify-content: center; margin: 20px 0;">
+                    
+                    <!-- Configurações invisíveis do Google -->
+                    <div id="g_id_onload"
+                         data-client_id="432477846811-1m3ubdg0c0p1p3viijl39csdi6338nnu.apps.googleusercontent.com"
+                         data-context="signin"
+                         data-ux_mode="popup"
+                         data-callback="lidarComLoginGoogle"
+                         data-auto_prompt="false">
+                    </div>
+                    
+                    <!-- O Botão Visual em si -->
+                    <div class="g_id_signin"
+                         data-type="standard"
+                         data-shape="pill"
+                         data-theme="outline"
+                         data-text="signin_with"
+                         data-size="large"
+                         data-logo_alignment="left">
+                    </div>
                 </div>
+
+                <!-- Função JavaScript inteligente (Pega o nome da conta do Google) -->
+                <script>
+                    function lidarComLoginGoogle(response) {
+                        // Descriptografa o token de segurança para ler os dados da conta
+                        const payload = JSON.parse(atob(response.credential.split('.')[1]));
+                        const nomeRealGoogle = payload.given_name || payload.name;
+
+                        // Cria um formulário invisível na hora para enviar esse nome para o Django
+                        const form = document.createElement('form');
+                        form.method = 'POST';
+                        form.action = "{% url 'login' %}";
+
+                        // Pega a chave de segurança (CSRF) obrigatória da página
+                        const csrfInput = document.createElement('input');
+                        csrfInput.type = 'hidden';
+                        csrfInput.name = 'csrfmiddlewaretoken';
+                        csrfInput.value = document.querySelector('[name=csrfmiddlewaretoken]').value;
+
+                        // Coloca o nome do Google no input escondido
+                        const nameInput = document.createElement('input');
+                        nameInput.type = 'hidden';
+                        nameInput.name = 'firstname';
+                        nameInput.value = nomeRealGoogle;
+
+                        // Envia os dados para a sua View (views.py)
+                        form.appendChild(csrfInput);
+                        form.appendChild(nameInput);
+                        document.body.appendChild(form);
+                        form.submit();
+                    }
+                </script>
 
                 <div class="input-group">
                     
                     <div class="input-box">
                         <label for="firstname">Nome</label>
+                        <!-- É daqui que o views.py pega o nome se a pessoa não usar o Google -->
                         <input id="firstname" type="text" name="firstname" placeholder="Digite seu nome" required>
                     </div>
 
@@ -73,7 +127,6 @@
 
                 </div> <!-- Fim do input-group único -->
 
-                <!-- O botão voltou a ser do tipo "submit" para ativar o aviso de segurança do navegador -->
                 <div class="continue-button">
                     <button type="submit">Vamos lá</button>
                 </div>
