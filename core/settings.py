@@ -1,8 +1,15 @@
+import os
 from pathlib import Path
+from dotenv import load_dotenv
+
+# 1. Carrega as variáveis do arquivo .env para o sistema
+load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+# 2. Cria a variável global da Gemini capturando do .env
+GEMINI_API_KEY = os.getenv('GEMINI_API_KEY')
 """
 Django settings for core project.
 
