@@ -1,6 +1,5 @@
 from django.contrib import admin
-from .models import Produto, HistoricoPreco
+from .models import HistoricoBusca
 
-# Registrando as tabelas para elas aparecerem no painel
-admin.site.register(Produto)
-admin.site.register(HistoricoPreco)
+# Registamos o nosso novo modelo para podermos vê-lo no painel de administração (Admin)
+admin.site.register(HistoricoBusca)
