@@ -1,0 +1,1 @@
+web: gunicorn PREÇP BAIXO A.I.wsgi --workers 1 --threads 2

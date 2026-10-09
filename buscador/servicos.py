@@ -2,52 +2,52 @@ import requests
 from google import genai
 from django.conf import settings
 
-# 1. Função do Mercado Livre Atualizada (Com correção de links do Plano B)
+# 1. Função do Mercado Livre Atualizada (Com correção de links e Otimização de Memória)
 def procurar_e_filtrar_produtos(termo_busca):
     url = f"https://api.mercadolibre.com/sites/MLB/search?q={termo_busca}"
     
-    # Cabeçalho simplificado (às vezes menos é mais para passar no filtro do ML)
     headers = {
         'Accept': 'application/json'
     }
     
     try:
-        # Aumentámos um pouco o timeout para o caso da API estar lenta
         resposta = requests.get(url, headers=headers, timeout=10)
         resposta.raise_for_status() 
         
         dados_brutos = resposta.json()
         produtos_enxutos = []
         
-        # O Mercado Livre costuma colocar os resultados dentro da chave 'results'
         resultados = dados_brutos.get('results', [])
         
         if not resultados:
             raise ValueError("Nenhum produto encontrado pela API.")
 
         for item in resultados[:3]:
-            # Extrair a imagem
             imagem_url = item.get('thumbnail', '')
             if imagem_url:
                 imagem_url = imagem_url.replace("I.jpg", "O.jpg")
                 
-            # Extrair o link real do produto (permalink)
             link_produto = item.get('permalink', 'https://www.mercadolivre.com.br')
                 
             produtos_enxutos.append({
                 'titulo': item.get('title', 'Produto sem título'),
                 'preco': item.get('price', 0),
-                'link': link_produto, # Link real do produto
+                'link': link_produto,
                 'imagem': imagem_url 
             })
+            
+        # ==========================================
+        # OTIMIZAÇÃO DE MEMÓRIA (PREVENÇÃO ERRO 137)
+        # ==========================================
+        del dados_brutos 
+        del resultados 
+        # ==========================================
             
         return produtos_enxutos
         
     except Exception as e:
         print(f"ERRO MERCADO LIVRE (Usando dados simulados): {e}") 
         
-        # --- PLANO B: MOCK DATA (DADOS SIMULADOS) ---
-        # Links dinâmicos: agora levam o usuário para a página de busca do produto no ML
         link_busca_ml = f'https://lista.mercadolivre.com.br/{termo_busca.replace(" ", "-")}'
         
         return [
@@ -71,10 +71,21 @@ def procurar_e_filtrar_produtos(termo_busca):
             }
         ]
 
-# 2. Função da IA da Gemini
+# 2. Função da IA da Gemini Atualizada (Análise Comparativa Dinâmica)
 def buscar_analise_ia(produtos):
     cliente = genai.Client(api_key=settings.GEMINI_API_KEY)
-    prompt = f"Analise estes produtos: {produtos}. Diga qual é o melhor custo-benefício."
+    
+    # 1. Primeiro, extraímos apenas o que importa (título e preço) e montamos um texto limpo
+    lista_formatada = ""
+    for i, produto in enumerate(produtos, 1):
+        lista_formatada += f"{i}. Produto: {produto['titulo']} | Preço: R$ {produto['preco']}\n"
+        
+    # 2. O Prompt Dinâmico de Especialista
+    prompt = f"""Aja como um especialista em compras. Compare os seguintes produtos que encontrei no Mercado Livre:
+    
+{lista_formatada}
+    
+Indique especificamente qual deles oferece o melhor custo-benefício hoje, justifique a sua escolha de forma lógica e matemática e alerte se algum preço parecer irreal, suspeito ou muito fora do padrão. Seja direto, amigável e retorne a resposta formatada de forma agradável em no máximo 2 ou 3 parágrafos."""
     
     try:
         resposta = cliente.models.generate_content(
