@@ -1,13 +1,8 @@
-from django.contrib import admin
 from django.urls import path
-from buscador import views  # Importa as funções que fizemos no views.py
+from . import views
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    
-    # Rota raiz (página inicial) chama a tela de login
-    path('', views.login, name='login'),
-    
-    # Rota da busca (home)
+    path('', views.login_view, name='login'),
+    path('processar-login/', views.processar_login, name='processar_login'), # <--- Esta é a linha crucial
     path('home/', views.home, name='home'),
 ]

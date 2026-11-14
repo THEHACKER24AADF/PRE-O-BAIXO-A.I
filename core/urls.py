@@ -3,5 +3,10 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('buscador.urls')), 
+    
+    # Suas rotas normais
+    path('', include('buscador.urls')),
+    
+    # As rotas prontas do django-allauth para o Google
+    path('accounts/', include('allauth.urls')),
 ]
